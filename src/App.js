@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ContextProvider from "./contexts/ContextProvider";
+import SlideProvider from "./contexts/SlideContext";
+import Root from "./pages/Root";
+import Slides from "./pages/Slides";
+import PageNotFound from "./pages/PageNotFound";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <ContextProvider providers={[SlideProvider]}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Root />} />
+                    <Route path="/slides/:number" element={<Slides />} />
+                    <Route path="404" element={<PageNotFound />} />
+                </Routes>
+            </BrowserRouter>
+        </ContextProvider>
+    );
+};
 
 export default App;
